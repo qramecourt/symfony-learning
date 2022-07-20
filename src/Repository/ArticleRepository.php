@@ -38,21 +38,37 @@ class ArticleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    /**
+    * @return Article[] Returns an array of Article objects
+    */
+    public function findByKeyboard($keyword): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andwhere('a.title LIKE :keyword')
+            ->orwhere('a.body LIKE :')
+            ->setParameter('keyword', "%{$keyword}%")
+            ->orderBy('a.id', 'ASC')
+            ->orderBy('a.published_at', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+            ;
+    }
+
+   /**
+    * @return Article[] Returns an array of Article objects
+    */
+   public function findAllSorted(): array
+   {
+       return $this->createQueryBuilder('a')//c'est comme l'alias du nom de table en SQL
+           ->orderBy('a.title', 'ASC')//c'est ici qu'on trie: a.title c'est par titre d'article
+           ->setMaxResults(10)
+           ->getQuery()//génère un objet Query (type requet SQL) c'est ici qu'on fait la requete
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Article
 //    {

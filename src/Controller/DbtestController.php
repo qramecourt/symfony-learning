@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Entity\Page;
+use App\Repository\ArticleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,6 +99,23 @@ class DbtestController extends AbstractController
         
     
     exit();
-   
+        
+    }
+#[Route('/db/test/repository', name:'app-db-test/repository')]
+    public function repository(ArticleRepository $repository) {// je récupère une instance du repositiry
+       $articles = $repository ->findAllSorted(); 
+       dump($articles);
+       
+       exit();
+    }
+
+    #[Route('/db/test/repository', name: 'dbtest')]
+    public function orm2(ArticleRepository $repository): Response
+    {
+$articles=$repository->findAllSorted();
+dump($articles);
+$articles=$repository->findByKeyword('plat');
+dump($articles);
+exit();
     }
 }
