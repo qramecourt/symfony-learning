@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use APIPlatform\Core\Annotation\ApiResource;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;//c'est ici qu'on peut accéder à la BDD
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {

@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class DbtestController extends AbstractController
 {
     #[Route('/dbtest/fixtures', name: 'app_dbtest')]
@@ -116,6 +117,14 @@ $articles=$repository->findAllSorted();
 dump($articles);
 $articles=$repository->findByKeyword('plat');
 dump($articles);
+
+$articles=$$articleRpository->findByPublishedBefore($date);
+dump($date);
+$date = \DateTime::createFromFormat('Y-m-d 00:00:00', '2022-06-30 00:00:00');
+dump($date);
+
+
 exit();
     }
+
 }

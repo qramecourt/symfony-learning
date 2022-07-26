@@ -5,7 +5,8 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use DateTime;
+use DateInterval;
 /**
  * @extends ServiceEntityRepository<Article>
  *
@@ -79,4 +80,20 @@ class ArticleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByRole(){
+    //a remplir
+}
+
+
+
+public function finByPublishedAtBefore() {
+$interval = DateInterval::createGromDateString('1 day');
+return $this->createQueryBuilder('a')
+            ->andWhere('a.published_at <= :date')
+            ->setParameter('date', $date->format('Y-m-d 00:00:00'))
+            ->orderBy('a.published_at','DESC')
+            ->addOrderBy('a.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

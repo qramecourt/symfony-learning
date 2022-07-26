@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 class Page
 {

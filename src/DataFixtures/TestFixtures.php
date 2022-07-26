@@ -23,7 +23,7 @@ class TestFixtures extends Fixture
     {
         $faker = FakerFactory::create('fr-FR');
         $this->loadCategories($manager, $faker);
-        $this->loadTags($manager, $faker);
+        // $this->loadTags($manager, $faker);
         $this -> loadArticles($manager, $faker);
     }
 
@@ -82,7 +82,7 @@ class TestFixtures extends Fixture
                 'published_at' => DateTimeImmutable::createFromFormat('Y-m-d H:i:s',
                 '2022-07-01 09:00:00'),
                 //on peut réutiliser la liste des catégories, et y affecter cette itération
-                'category' =>$actegories[0],
+                'category' =>$categories[0],
                 //ici, vu que plusieurs tags
                 'tags '=> [$tags[2]]
 
@@ -121,13 +121,15 @@ class TestFixtures extends Fixture
                 $article = new Article();
                 $article-> setTitle($faker->sentence());
                 $article-> setBody($faker->paragraph(6));
-
+            /*je géère une date aléatoir nulle 1 fois sur 10*/ 
+                $date = $faker->optional($weight = 0, 9);
                 $date = $faker->dateTimeBetween('-6 month', '+6 month');
                 $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', "2022-{$date->format('m')}-{$date->format('d')} {$date->format('H')}:{$date->format('i')}:{$date->format('s')}");
             // si la gestion de la date est trop compliquée, voici une alternative
             // $date = $faker->dateTimeThisYear();
             // $date = DateTimeImmutable::createFromInterface($date);
                 $article->setPublishedAt($date);
+
                 //sélection d'une catégorie depuis la list complète !!!!
                 //la fonction renvoie un tableau. il faut donc utiliser le premier élément de ce tableau
                 $category = $faker->randomElements($categories)[0];
