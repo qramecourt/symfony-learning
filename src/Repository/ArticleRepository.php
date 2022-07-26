@@ -96,4 +96,13 @@ return $this->createQueryBuilder('a')
             ->getQuery()
             ->getResult();
     }
+public function findNlast($n): array 
+{
+    return $this->createQueryBuilder('a')
+        ->orderBy('a.pulbished_at', 'DESC')
+        ->setMaxResults($n)
+        ->getQuery()
+        ->setResult();
+}
+
 }

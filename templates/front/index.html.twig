@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontController!{% endblock %}
+
+{% block body %}
+{% if articles %}
+    <ul>
+        {% for article in articles %}
+        <li>
+            <a href="">{{ article.title }}</a>
+            {% if article.author %}
+            (auter: {{article.author.user.email}})
+            {% endif %}
+        <li>
+        {% endfor %}
+    </ul>
+{% else %}
+il n'y a encore aucun article
+{% endif %}
+{% endblock %}
