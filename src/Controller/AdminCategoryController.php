@@ -25,10 +25,10 @@ class AdminCategoryController extends AbstractController
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
         $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
+        $form = $this->createForm(CategoryType::class, $category); // créée le fomrulaire
+        $form->handleRequest($request);// met les données dans le formulaire
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {//SI  le formulaire est rempli ET si les bonnes données sont entrées
             $categoryRepository->add($category, true);
 
             return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
